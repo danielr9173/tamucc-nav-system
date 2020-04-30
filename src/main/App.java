@@ -1,6 +1,6 @@
 /**
  * @author Rafay Shaikh
- * @author Henry Lee Barton III
+ * @author 
  * 
  * @since 10/30/2019
  */
@@ -53,7 +53,7 @@ public class App {
 							window.frame.setVisible(true);
 						}
 
-					}, 0); //delay = 12100
+					}, 12100); //delay = 12100
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
