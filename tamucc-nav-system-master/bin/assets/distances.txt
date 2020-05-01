@@ -1,0 +1,4 @@
+It goes 1) Starting Building 2) Ending Building 3) Distance between the two in feet. The Line Directly Below This is how many rows of Building Info there are:
+2
+Bay Hall:Center For Instruction:300
+Bay Hall:Center For Art:200
