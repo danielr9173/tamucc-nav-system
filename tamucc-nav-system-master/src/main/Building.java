@@ -23,8 +23,8 @@ public class Building {
 	public static String[][][] buildingPaths;
 
 	//To keep track of how many elements each index of the String[][][] can hold.
-	public static Integer maxFirstBracketIndex;
-	public static int maxSecondBracketIndex = 2, maxThirdBracketIndex = 2;
+	public static Integer maxSecondBracketIndex; //All different starting Building
+	public static int maxThirdBracketIndex = 2; //0 when we're tring to get names. 1 when we want the distance value.
 
 	//false until the first Building object is created.
 	//true after that. So, we only popoulate the buildingPaths array one time,
@@ -163,22 +163,49 @@ public class Building {
 			distanceReader.nextLine();
 
 			//Integer.parseInt() takes a string value and converts it into an integer.
-			maxFirstBracketIndex = Integer.parseInt(distanceReader.nextLine());
+			maxSecondBracketIndex = Integer.parseInt(distanceReader.nextLine());
 
-			buildingPaths = new String[maxFirstBracketIndex][maxSecondBracketIndex][maxThirdBracketIndex];
+			buildingPaths = new String[maxSecondBracketIndex][maxSecondBracketIndex][maxThirdBracketIndex];
+
+			//We're going to be subtracting from this, but we still need maxSecondBracketIndex to be its original
+			//value when we're looking for distances via user-selection.
+			int secondBracket = maxSecondBracketIndex;
 
 
-			for(int i = 0; i < maxFirstBracketIndex; i++) {
+			for(int i = 0; i < maxSecondBracketIndex; i++) {
+
+
+
+				if(secondBracket == 1)
+				{
+					break;
+				}
+
 				parseLine = distanceReader.nextLine();
 				String[] tokens = parseLine.split(":"); //delimiter between tokens is ":".
 
 				buildingPaths[i][0][0] = tokens[0];
-				buildingPaths[i][1][0] = tokens[1];
-				buildingPaths[i][1][1] = tokens[2];
 
-				System.out.printf("%s  %s  %s\n", buildingPaths[i][0][0], buildingPaths[i][1][0], buildingPaths[i][1][1]);
+
+				for(int j = 1; j < secondBracket; j++) {
+					buildingPaths[i][j][0] = tokens[1];
+					buildingPaths[i][j][1] = tokens[2];
+
+
+
+					if(j < secondBracket -1) {
+						parseLine = distanceReader.nextLine();
+						tokens = parseLine.split(":"); //delimiter between tokens is ":".
+
+					}
+
+				}
+
+				secondBracket = secondBracket -1;
 
 			}
+
+
 
 		}catch(FileNotFoundException e)
 		{

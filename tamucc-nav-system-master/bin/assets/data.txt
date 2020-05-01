@@ -11,7 +11,7 @@ Center for the Sciences
 The Center for the Sciences contains a mid-sized lecture hall, classrooms, science labs, and faculty offices for the College of Science and Engineering.
 30
 Classroom East
-Classroom East is a building for general class rooms where any department can hold their classes.
+The Classroom East is for general class rooms where any department can hold their classes.
 50
 Corpus Christi Hall
 The Corpus Chriti Hall is a place where a variety of classes are offered and it can also host some events.
@@ -22,7 +22,7 @@ A constant place of discovery, the Dr. Robert R. Furgason Engineering Building i
 Early Childhood Development Center
 The Early Childhood Development Center is an elementary school for students ages 3 through sixth grade operated jointly by Texas A&M University-Corpus Christi and the Corpus Christi Independent School District. The center serves as a site for research and educator training for the University's College of Education. University students, many who are educators seeking advanced degrees, bring innovative programming and ideas into the Center's classrooms.
 40
-Education Center for Mathematics and Science 
+Education Center for Mathematics and Science
 The Educational Center for Mathematics and Science (ECMS) at Texas A&M University-Corpus Christi is dedicated to providing a solid base in science and math today for the workforce of tomorrow. As part of the University's College of Education, the Center hosts courses for teachers in training, field trips for area students, summer camps, and night and weekend professional development classes for experienced educators. It also serves as laboratory and presentation space for Corpus Christi ISD's Early Childhood Development Center.
 40
 Engineering Lab

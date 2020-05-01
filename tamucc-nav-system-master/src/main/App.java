@@ -84,7 +84,7 @@ public class App {
 		// Create buildings from data
 		try {
 			// Open data file
-			File mapDataFile = new File("./src/assets/data.txt");
+			File mapDataFile = new File("bin/assets/data.txt");
 			Scanner mapData = new Scanner(mapDataFile);
 			// Parse data
 			int index = 0;
@@ -322,59 +322,73 @@ public class App {
 				if (buildingName1.equals(buildingName2)) {
 					distanceDescription.setText("The Starting and Ending Locations are Identical.");
 					timeDescription.setText("");
-					
-				}
 
-				if (!buildingName2.equals("Nothing")) //If the ending destination has been picked already.
+				}
+				else if (!buildingName2.equals("Nothing")) //If the ending destination has been picked already.
 				{                                    //It wouldn't be picked during the start of the program.
 
-					for (int i = 0; i < Building.maxFirstBracketIndex; i++) {
+					boolean foundDistance;
 
-						//First bracket represents starting or ending building names.
-						//second bracket represents ending or starting building names.
-						if ((buildingName1.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName2.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()))
-								|| (buildingName2.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName1.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()))) {
+					int secondBracket = Building.maxSecondBracketIndex;
+
+					for (int i = 0; i < Building.maxSecondBracketIndex; i++) {
+
+						foundDistance = false;
+
+						for (int j = 1; j < secondBracket; j++) {
 
 
+							if ((buildingName1.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName2.toUpperCase().equals(Building.buildingPaths[i][j][0].toUpperCase()))
+									|| (buildingName2.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName1.toUpperCase().equals(Building.buildingPaths[i][j][0].toUpperCase()))) {
 
+								//https://www.healthline.com/health/exercise-fitness/average-walking-speed#average-speed-by-age
+								//^^Average walking speed for 20-29 year-olds is around 1.35 meters/second, according to this website.
 
-							//https://www.healthline.com/health/exercise-fitness/average-walking-speed#average-speed-by-age
-							//^^Average walking speed for 20-29 year-olds is around 1.35 meters/second, according to this website.
+								//https://www.metric-conversions.org/length/feet-to-meters.htm
+								//^^1 ft = 0.305 meters, according to his website.
 
-							//https://www.metric-conversions.org/length/feet-to-meters.htm
-							//^^1 ft = 0.305 meters, according to his website.
+								//Velocity = distance/time
+								//time = distance / velocity
+								double timeInSec = (Integer.parseInt(Building.buildingPaths[i][j][1]) * 0.305) / 1.35;
+								int timeInMin = (int) (timeInSec / 60); //To get how many minutes it will take.
+								//we just want an approximation. So get rid of decimals
+								//by converting to int.
 
-							//Velocity = distance/time
-							//time = distance / velocity
-							double timeInSec = (Integer.parseInt(Building.buildingPaths[i][1][1]) * 0.305) / 1.35;
-							int timeInMin = (int)(timeInSec / 60); //To get how many minutes it will take.
-																//we just want an approximation. So get rid of decimals
-																//by converting to int.
+								//Third bracket represents the distance in feet.
 
-							//Third bracket represents the distance in feet.
+								distanceDescription.setText("Estimated Distance: " + Building.buildingPaths[i][j][1] + " ft");
 
-							distanceDescription.setText("Estimated Distance: " + Building.buildingPaths[i][1][1] + " ft");
+								if (timeInMin == 0) {
+									timeDescription.setText("Approximate Travel Time: less than 1 minute.");
+								} else if (timeInMin == 1) {
+									timeDescription.setText("Approximate Travel Time: 1 minute.");
+								} else {
+									timeDescription.setText("Approximate Travel Time: " + timeInMin + " minutes.");
 
-							if(timeInMin == 0)
-							{
-								timeDescription.setText("Approximate Travel Time: less than 1 minute.");
-							}
-							else if(timeInMin == 1) {
-								timeDescription.setText("Approximate Travel Time: 1 minute.");
-							}
-							else
-							{
-								timeDescription.setText("Approximate Travel Time: " + timeInMin + "minutes.");
+								}
+
+								foundDistance = true;
+
+								break;
+
 
 							}
 
 
 						}
 
+						if(foundDistance)
+						{
+							break;
+						}
+
+						secondBracket = secondBracket - 1;
+
 					}
 				}
 			}
 		});
+
 
 		//Create Combo box Listener for Ending location menu
 		comboBox2.addActionListener(new ActionListener() {
@@ -392,18 +406,22 @@ public class App {
 					distanceDescription.setText("The Starting and Ending Locations are Identical.");
 					timeDescription.setText("");
 				}
-
-				if (!buildingName1.equals("Nothing")) //If the starting destination has been picked already.
+				else if(!buildingName1.equals("Nothing")) //If the starting destination has been picked already.
 				{                                    //It wouldn't be picked during the start of the program.
 
+					boolean foundDistance;
 
-					for (int i = 0; i < Building.maxFirstBracketIndex; i++) {
+					int secondBracket = Building.maxSecondBracketIndex;
 
-						//First bracket represents starting or ending building names.
-						//second bracket represents ending or starting building names.
-							if( (buildingName1.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName2.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()))
-								||(buildingName2.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName1.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()) ) )
-							{
+					for (int i = 0; i < Building.maxSecondBracketIndex; i++) {
+
+						foundDistance = false;
+
+						for (int j = 1; j < secondBracket; j++) {
+
+
+							if ((buildingName1.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName2.toUpperCase().equals(Building.buildingPaths[i][j][0].toUpperCase()))
+									|| (buildingName2.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName1.toUpperCase().equals(Building.buildingPaths[i][j][0].toUpperCase()))) {
 
 								//https://www.healthline.com/health/exercise-fitness/average-walking-speed#average-speed-by-age
 								//^^Average walking speed for 20-29 year-olds is around 1.35 meters/second, according to this website.
@@ -413,36 +431,48 @@ public class App {
 
 								//Velocity = distance/time
 								//time = distance / velocity
-								double timeInSec = (Integer.parseInt(Building.buildingPaths[i][1][1]) * 0.305) / 1.35;
-								int timeInMin = (int)(timeInSec / 60); //To get how many minutes it will take.
+								double timeInSec = (Integer.parseInt(Building.buildingPaths[i][j][1]) * 0.305) / 1.35;
+								int timeInMin = (int) (timeInSec / 60); //To get how many minutes it will take.
 								//we just want an approximation. So get rid of decimals
 								//by converting to int.
 
 								//Third bracket represents the distance in feet.
 
-								distanceDescription.setText("Estimated Distance: " + Building.buildingPaths[i][1][1] + " ft");
+								distanceDescription.setText("Estimated Distance: " + Building.buildingPaths[i][j][1] + " ft");
 
-								if(timeInMin == 0)
-								{
+								if (timeInMin == 0) {
 									timeDescription.setText("Approximate Travel Time: less than 1 minute.");
-								}
-								else if(timeInMin == 1) {
+								} else if (timeInMin == 1) {
 									timeDescription.setText("Approximate Travel Time: 1 minute.");
-								}
-								else
-								{
-									timeDescription.setText("Approximate Travel Time: " + timeInMin + "minutes.");
+								} else {
+									timeDescription.setText("Approximate Travel Time: " + timeInMin + " minutes.");
 
 								}
+
+								foundDistance = true;
+
+								break;
 
 
 							}
 
+
 						}
+
+						if(foundDistance)
+						{
+							break;
+						}
+
+						secondBracket = secondBracket - 1;
 
 					}
 				}
+			}
 		});
 	}
+
+
+
 }
 
