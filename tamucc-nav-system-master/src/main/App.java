@@ -55,7 +55,7 @@ public class App {
 							window.frame.setVisible(true);
 						}
 
-					}, 12100); //delay = 12100
+					}, 0); //delay = 12100
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -261,12 +261,25 @@ public class App {
 
 		//Written to give the header for the distance and time information.
 		JLabel distanceAndTime = new JLabel("Distance between location and estimated time of arrival:");
-		distanceAndTime.setBounds(575, 471, 400, 14);
+		distanceAndTime.setBounds(575, 471, 500, 300);
+		distanceAndTime.setVerticalAlignment(JLabel.TOP); //Without alignments, JLabel texts just kind of go anywhere.
+															//So, we position the "Distance between location and..."
+																//At the top of the JLabel.
 		frame.getContentPane().add(distanceAndTime);
 
-		JLabel distanceAndTimeDescription = new JLabel("");
-		distanceAndTimeDescription.setBounds(20, 20, 200, 20);
-		distanceAndTime.add(distanceAndTimeDescription);
+
+		JLabel distanceDescription = new JLabel("");
+		distanceDescription.setBounds(0, 40, 500, 300);
+		distanceDescription.setVerticalAlignment(JLabel.TOP);
+		distanceDescription.setFont(new Font("Serif", Font.BOLD, 18));
+		distanceAndTime.add(distanceDescription);
+
+		JLabel timeDescription = new JLabel("");
+		timeDescription.setBounds(0, 80, 500, 300);
+		timeDescription.setVerticalAlignment(JLabel.TOP);
+		timeDescription.setFont(new Font("Serif", Font.BOLD, 18));
+		distanceAndTime.add(timeDescription);
+
 
 
 		//Written prompt to display
@@ -307,17 +320,56 @@ public class App {
 				buildingName1 = building.getName();
 
 				if (buildingName1.equals(buildingName2)) {
-					distanceAndTimeDescription.setForeground(Color.RED);
-					distanceAndTimeDescription.setText("The Starting and Ending Locations are Identical");
-					//distanceAndTimeDescription.updateUI(); //Update the JLabel to show this new text.
-					System.out.println(distanceAndTimeDescription.getText());
+					distanceDescription.setText("The Starting and Ending Locations are Identical.");
+					timeDescription.setText("");
+					
 				}
 
 				if (!buildingName2.equals("Nothing")) //If the ending destination has been picked already.
 				{                                    //It wouldn't be picked during the start of the program.
 
-					for (int nameIndex = 0; nameIndex < Building.maxFirstBracketIndex; nameIndex++) {
+					for (int i = 0; i < Building.maxFirstBracketIndex; i++) {
 
+						//First bracket represents starting or ending building names.
+						//second bracket represents ending or starting building names.
+						if ((buildingName1.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName2.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()))
+								|| (buildingName2.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName1.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()))) {
+
+
+
+
+							//https://www.healthline.com/health/exercise-fitness/average-walking-speed#average-speed-by-age
+							//^^Average walking speed for 20-29 year-olds is around 1.35 meters/second, according to this website.
+
+							//https://www.metric-conversions.org/length/feet-to-meters.htm
+							//^^1 ft = 0.305 meters, according to his website.
+
+							//Velocity = distance/time
+							//time = distance / velocity
+							double timeInSec = (Integer.parseInt(Building.buildingPaths[i][1][1]) * 0.305) / 1.35;
+							int timeInMin = (int)(timeInSec / 60); //To get how many minutes it will take.
+																//we just want an approximation. So get rid of decimals
+																//by converting to int.
+
+							//Third bracket represents the distance in feet.
+
+							distanceDescription.setText("Estimated Distance: " + Building.buildingPaths[i][1][1] + " ft");
+
+							if(timeInMin == 0)
+							{
+								timeDescription.setText("Approximate Travel Time: less than 1 minute.");
+							}
+							else if(timeInMin == 1) {
+								timeDescription.setText("Approximate Travel Time: 1 minute.");
+							}
+							else
+							{
+								timeDescription.setText("Approximate Travel Time: " + timeInMin + "minutes.");
+
+							}
+
+
+						}
 
 					}
 				}
@@ -337,8 +389,8 @@ public class App {
 				buildingName2 = building2.getName();
 
 				if (buildingName1.equals(buildingName2)) {
-					distanceAndTimeDescription.setForeground(Color.RED);
-					distanceAndTimeDescription.setText("The Starting and Ending Locations are Identical");
+					distanceDescription.setText("The Starting and Ending Locations are Identical.");
+					timeDescription.setText("");
 				}
 
 				if (!buildingName1.equals("Nothing")) //If the starting destination has been picked already.
@@ -347,18 +399,42 @@ public class App {
 
 					for (int i = 0; i < Building.maxFirstBracketIndex; i++) {
 
-
-
 						//First bracket represents starting or ending building names.
 						//second bracket represents ending or starting building names.
 							if( (buildingName1.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName2.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()))
 								||(buildingName2.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName1.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()) ) )
 							{
 
-								//Third bracket represents the distance in feet.
-								distanceAndTimeDescription.setText("Estimated Distance: " + Building.buildingPaths[i][0][1] + " ft");
+								//https://www.healthline.com/health/exercise-fitness/average-walking-speed#average-speed-by-age
+								//^^Average walking speed for 20-29 year-olds is around 1.35 meters/second, according to this website.
 
-								System.out.println(Building.buildingPaths[i][1][1]);
+								//https://www.metric-conversions.org/length/feet-to-meters.htm
+								//^^1 ft = 0.305 meters, according to his website.
+
+								//Velocity = distance/time
+								//time = distance / velocity
+								double timeInSec = (Integer.parseInt(Building.buildingPaths[i][1][1]) * 0.305) / 1.35;
+								int timeInMin = (int)(timeInSec / 60); //To get how many minutes it will take.
+								//we just want an approximation. So get rid of decimals
+								//by converting to int.
+
+								//Third bracket represents the distance in feet.
+
+								distanceDescription.setText("Estimated Distance: " + Building.buildingPaths[i][1][1] + " ft");
+
+								if(timeInMin == 0)
+								{
+									timeDescription.setText("Approximate Travel Time: less than 1 minute.");
+								}
+								else if(timeInMin == 1) {
+									timeDescription.setText("Approximate Travel Time: 1 minute.");
+								}
+								else
+								{
+									timeDescription.setText("Approximate Travel Time: " + timeInMin + "minutes.");
+
+								}
+
 
 							}
 
