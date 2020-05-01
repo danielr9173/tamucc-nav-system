@@ -25,8 +25,8 @@ import javax.swing.border.Border;
 /***
  * Class App controls everything
  *
- * @author Henry Barton, Rafay Shaikh
- * @date 11/15/2019
+ * @author Rafay Shaikh, Daniel Ramirez, Charles Quigley
+ * @date 04/30/2020
  */
 public class App {
 
@@ -344,17 +344,25 @@ public class App {
 				if (!buildingName1.equals("Nothing")) //If the starting destination has been picked already.
 				{                                    //It wouldn't be picked during the start of the program.
 
+
 					for (int i = 0; i < Building.maxFirstBracketIndex; i++) {
+
+
 
 						//First bracket represents starting or ending building names.
 						//second bracket represents ending or starting building names.
-						if( (buildingName1.equals(Building.buildingPaths[i][0][0]) && buildingName2.equals(Building.buildingPaths[0][1][0]))
-							||buildingName2.equals(Building.buildingPaths[i][0][0]) && buildingName1.equals(Building.buildingPaths[0][1][0]));
+							if( (buildingName1.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName2.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()))
+								||(buildingName2.toUpperCase().equals(Building.buildingPaths[i][0][0].toUpperCase()) && buildingName1.toUpperCase().equals(Building.buildingPaths[i][1][0].toUpperCase()) ) )
+							{
 
-							//Third bracket represents the distance in feet.
-							distanceAndTimeDescription.setText("Estimated Distance: " + Building.buildingPaths[i][0][1] + " ft");
+								//Third bracket represents the distance in feet.
+								distanceAndTimeDescription.setText("Estimated Distance: " + Building.buildingPaths[i][0][1] + " ft");
+
+								System.out.println(Building.buildingPaths[i][1][1]);
+
+							}
+
 						}
-
 
 					}
 				}

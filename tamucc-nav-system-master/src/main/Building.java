@@ -70,14 +70,7 @@ public class Building {
 	}
 
 
-	//Array holding one particular building's path to every other building.
-	//--------------------------------------------------------------------------
-	// 0 = Bay Hall, 1 = Center for Instruction, 2 = Center for Art, 3 = Center for Sci
-	// 4 = Class room east/west, 5 = corpus christi hall, 6 = dr robert, 7 = Early childhood,
-	//8 = Education Center Math/Sci, 9 = Engineer lab, 10 = Faculty Center
-	//11 = Glass Student, 12 = Harte Research, 13 = Island Hall, 14 = Mary and Jeff Bell,
-	//15 = Michael and Karen, 16 = Tidal Hall, 17 = Carlos Truan, 18 = Student Services,
-	//19 = University center, 20 = University police, 21 = Bayside
+
 
 	
 	/// ///////////////////
@@ -175,7 +168,6 @@ public class Building {
 			buildingPaths = new String[maxFirstBracketIndex][maxSecondBracketIndex][maxThirdBracketIndex];
 
 
-
 			for(int i = 0; i < maxFirstBracketIndex; i++) {
 				parseLine = distanceReader.nextLine();
 				String[] tokens = parseLine.split(":"); //delimiter between tokens is ":".
@@ -183,7 +175,6 @@ public class Building {
 				buildingPaths[i][0][0] = tokens[0];
 				buildingPaths[i][1][0] = tokens[1];
 				buildingPaths[i][1][1] = tokens[2];
-
 
 				System.out.printf("%s  %s  %s\n", buildingPaths[i][0][0], buildingPaths[i][1][0], buildingPaths[i][1][1]);
 
